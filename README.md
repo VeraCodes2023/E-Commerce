@@ -107,4 +107,5 @@ Unit tests have been implemented for the reducers to ensure their functionality.
 
 ### 8. Deployment link <img src="https://github.com/VeraCodes2023/fs16_6-frontend-project/assets/130740510/1c758eaf-8fd5-417f-a187-281ebc37556f" width="25" height="25">
 
-https://652a4a36ac53120cf6fa9efd--cute-kleicha-f94799.netlify.app
+https://652aab6e603f7a41c40d1d18--scintillating-crepe-55caa4.netlify.app
+

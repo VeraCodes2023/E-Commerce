@@ -6,6 +6,9 @@ import ProductInput from '../types/ProductInput';
 import { useNavigate } from 'react-router-dom';
 import  {useAppSelector} from '../redux/hooks/useAppSelector';
 
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
 const CreateProduct:React.FC = () => {
     const {error}=useAppSelector(state=>state.productReducer)
     const [message,setMessage]=useState("")
@@ -82,8 +85,10 @@ const CreateProduct:React.FC = () => {
 
   return (
     <form id='newProductForm'  onSubmit={e=>handleSubmit(e)}>
-         {message? <p className='reminder'>{message}</p>:null}
-         {error? <p className='error'>{error}</p>:null}
+        <Stack sx={{ width: '100%', marginBottom:1 }} spacing={2}>
+        {message?<Alert severity="success">{message}</Alert>:null}
+        {error?<Alert severity="error">{error}</Alert>:null}
+        </Stack>
         <div>
             <label htmlFor="">Product Title</label>
             <input type="text" name='title' value={product.title}   placeholder='Product Title'  onChange={handleInputChange}/>

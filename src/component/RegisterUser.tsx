@@ -4,7 +4,6 @@ import { registerUser } from '../redux/asyncThunk/userAsync';
 import axios from 'axios';
 import { useAppDisPatch }from '../redux/hooks/useAppDispatch';
 
-
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 
