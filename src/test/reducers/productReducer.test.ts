@@ -1,10 +1,10 @@
-import {fetchAllProducts,addProduct,deleteProduct,updateProduct} from "../../components/redux/asyncThunk/productsAsync";
-import {setUpState,sortProductsbyPrice}from "../../components/redux/reducers/productsSlice"
+import {fetchAllProducts,addProduct,deleteProduct,updateProduct} from "../../redux/asyncThunk/productsAsync";
+import {setUpState,sortProductsbyPrice}from "../../redux/reducers/productsSlice"
 import { productsData } from "../data/productsData"
 import server from "../public/productServer"
 import store from "../public/store"
-import ProductInput from "../../components/types/ProductInput";
-import updateProductProps from "../../components/types/updatedProduct"
+import ProductInput from "../../types/ProductInput";
+import updateProductProps from "../../types/updatedProduct"
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 const mock = new MockAdapter(axios);

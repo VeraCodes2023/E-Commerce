@@ -13,12 +13,18 @@ const ProfileUpdate:React.FC = () => {
     const [img,setImg]=useState("")
     const [message,setMessage]=useState("")
    
-    const [user,setUser]=useState({
+    const [user,setUser]=useState(
+      {
         name:"",
         email:"",
         password:"",
         avatar:img
-    })
+      })
+    const handleInputChange=(event:React.ChangeEvent<HTMLInputElement>)=>{
+        const { name, value} = event.target;
+        setUser({...user, [name]:value} )
+    }
+    
     useEffect(()=>{
         setUser({
             name:localStorage.getItem('name')?? '',
@@ -29,10 +35,10 @@ const ProfileUpdate:React.FC = () => {
 
     },[])
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length > 0) {
-          setFile(e.target.files[0]);
-        }
-    };
+      if (e.target.files && e.target.files.length > 0) {
+        setFile(e.target.files[0]);
+      }
+  };
     const handleUpload = useCallback(async () => {
         if (file) {
             const formData = new FormData();
@@ -59,10 +65,7 @@ const ProfileUpdate:React.FC = () => {
         handleUpload()
       },[handleUpload]
     )
-    const handleInputChange=(event:React.ChangeEvent<HTMLInputElement>)=>{
-        const { name, value} = event.target;
-        setUser({...user, [name]:value} )
-    }
+  
 
     const handleUpdateProfile= async (e:React.FormEvent)=>{
         e.preventDefault()

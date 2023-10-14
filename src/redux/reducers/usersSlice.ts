@@ -1,6 +1,7 @@
 import {PayloadAction , createSlice} from '@reduxjs/toolkit';
 import UserListProps from '../../types/UserList';
 import  UpdateProfileProps from '../../types/UpdateProfile';
+
 import  {
     fetchUsersAsync, 
     registerUser,
@@ -8,6 +9,7 @@ import  {
     updateUser,
     loginUserAsync
  } from '../asyncThunk/userAsync';
+
 
 const initialState:{
     error:string | undefined,
@@ -26,7 +28,7 @@ const usersSlice= createSlice({
     initialState,
     reducers:{
         logOut: (state, action) => {
-            state.loginUser=null
+            state.loginUser=null;
             localStorage.clear()
         }
     },
@@ -36,16 +38,15 @@ const usersSlice= createSlice({
         })
         builder.addCase(registerUser.fulfilled,(state,action:PayloadAction<UserListProps>)=>{
             state.users.push(action.payload)
-            // if(! (action.payload instanceof Error)){
-            //     const userExists=state.users.map(user=>user.id=== action.payload.id)
-            //     if(!userExists){
-            //         state.users.push(action.payload)
-            //     }
-            // }
-        
+            if(! (action.payload instanceof Error)){
+                const userExists=state.users.map(user=>user.id=== action.payload.id)
+                if(!userExists){
+                    state.users.push(action.payload)
+                }
+            }
         })
         builder.addCase(registerUser.rejected, (state,action)=>{
-            console.log(action.payload)
+            // console.log(action.payload)
             if(action.payload instanceof Error){
 
                 return{
@@ -69,9 +70,8 @@ const usersSlice= createSlice({
             state.error=action.payload as string | undefined
         })
         .addCase(loginUserAsync.fulfilled, (state, action) => {
-            console.log("userreducer fulfilled")
-            state.loginUser = action.payload
-            state.error=""
+                state.loginUser = action.payload
+                state.error=""
         })
         .addCase(loginUserAsync.rejected, (state, action) => {
             console.log("userreducer rejected")

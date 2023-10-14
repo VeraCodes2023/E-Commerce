@@ -1,25 +1,39 @@
+import {useEffect} from 'react';
 import { BrowserRouter,Routes,Route,Navigate  } from 'react-router-dom';
-import {useAppSelector} from './components/redux/hooks/useAppSelector';
-import HeaderLogIn from './components/pages/HeaderLogin';
-import Footer from './components/pages/Footer';
-import publicRoutes from './components/routes/publicRoutes';
-import privateRoutes from './components/routes/privateRoutes';
-import adminRoutes from './components/routes/adminRoutes';
+import {useAppSelector} from './redux/hooks/useAppSelector';
+import HeaderLogIn from './component/HeaderLogin';
+import Footer from './component/Footer';
+import publicRoutes from './routes/publicRoutes';
+import privateRoutes from './routes/privateRoutes';
+import adminRoutes from './routes/adminRoutes';
 import {nanoid} from 'nanoid';
-import HeaderLogOut from './components/pages/HeaderLogout';
-import {useTheme} from './components/shared/ThemeContext';
+import HeaderLogOut from './component/HeaderLogout';
+import {useTheme} from './shared/ThemeContext';
+import  {useAppDisPatch} from './redux/hooks/useAppDispatch';
+import  {authenticateUserAsync} from './redux/asyncThunk/userAsync'
 
 const App = () => {
-
-  const { theme, toggleTheme } = useTheme(); 
-  const {loginUser} = useAppSelector(state=>state.usersReducer)
+  const dispatch = useAppDisPatch()
+  const { theme} = useTheme(); 
+  const loginUser= useAppSelector(state=>state.usersReducer.loginUser)
   
+  if(loginUser !==null)
+  console.log(loginUser)
+
+
+  useEffect(() => {
+    const access_token = localStorage.getItem("access_token");
+    if (access_token) {
+      dispatch(authenticateUserAsync(access_token));
+    }
+  }, [dispatch]);
+
+
   return (
     <div className={`${theme === 'dark' ? 'dark-theme' : 'light-theme'}`}>
         <BrowserRouter>
-          <button onClick={toggleTheme} className='theme-btn'>Change Theme</button>
             {
-              loginUser !==null ? 
+              loginUser !==null &&  loginUser !==undefined? 
               <HeaderLogOut/>:<HeaderLogIn/>
             }
 
@@ -31,43 +45,29 @@ const App = () => {
               element={<Component/>}
               ></Route>)
             }
-            
             {
               privateRoutes.map( ({path, component: Component})=>{
-                if( (loginUser !==null && loginUser !==undefined)  && (loginUser.role ==="customer"||loginUser.role ==="admin")) {
-                    return (<Route
-                        key={`privateRoute-${nanoid()}`}
-                        path={path}
-                        element={<Component/>}
-                      >
-                    </Route>)
-                }else{
-                    return  (<Route key={`Navigate-${nanoid()}`}  
-                    path={path} 
-                    element={<Navigate to="/login" />}
-                  >
-                  </Route>)
-                }
+                return(<Route
+                    key={`privateRoute-${nanoid()}`}
+                    path={path}
+                    element={(loginUser !==null && loginUser !==undefined) && (loginUser.role ==="customer" || loginUser.role==="admin") ?
+                    <Component/>: <Navigate to="/login"/>}>
+                </Route>)
+
               })
              
             }
 
             {
-              adminRoutes.map(({path,component:Component})=>
-                ((loginUser !==null && loginUser !==undefined)  && loginUser.role ==="admin")?
-                (<Route 
-                key={`adminRoute-${nanoid()}`}
-                path={path}
-                element={<Component/>}
-              >
-              </Route>)
-              :(
-                <Route key={`Navigate-${nanoid()}`}
-                path={path} 
-                element={<Navigate to="/login"/>}
-                >
-                </Route>
-              )
+              adminRoutes.map(({path,component:Component})=>{
+                return (<Route 
+                  key={`adminRoute-${nanoid()}`}
+                  path={path}
+                  element={ (loginUser !==null && loginUser !==undefined && loginUser.role ==="admin")?
+                  <Component/>:<Navigate to="/login"/>}>
+                </Route>)
+              }
+                
               )
             }
             </Routes>

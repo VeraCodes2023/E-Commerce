@@ -71,7 +71,7 @@ const CartPage:React.FC = () => {
                 />
               </td>
               <td>
-                <img src={item.images? item.images[0]:shoe} alt="pic" />
+                <img src={item.images? item.images[0]:""} alt="pic" />
               </td>
               <td>
                  {item.title}

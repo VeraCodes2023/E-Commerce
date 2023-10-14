@@ -1,9 +1,9 @@
 import AdminDashBoard from '../pages/AdminDashBoard';
-import CreateProduct from '../pages/CreateProduct';
-import UpdateProduct  from '../pages/UpdateProduct';
+import CreateProduct from '../component/CreateProduct';
+import UpdateProduct  from '../component/UpdateProduct';
 import UserProfilePage from '../pages/UserProfilePage';
 import PaymentPage from '../pages/PaymentPage';
-import ProfileUpdate from '../pages/ProfileUpdate';
+import ProfileUpdate from '../component/ProfileUpdate';
 
 
 const adminRoutes =[

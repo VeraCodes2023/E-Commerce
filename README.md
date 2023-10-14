@@ -9,7 +9,7 @@
 This documentation provides information on how to use and understand the features of the E-commerce website data from the https://fakeapi.platzi.com/ API endpoints. The website is designed to showcase products, allow users to browse, add items to their cart, and perform various actions such as registration, login, and profile management.
 
 ## Data Flow
-![Alt text](dataflow.png)
+<img width="570" alt="image" src="https://github.com/VeraCodes2023/fs16_6-frontend-project/assets/130740510/89bff96a-d753-49aa-a6c2-aff581339b1b">
 
 ## Table of Contents
 - Getting Started
@@ -51,25 +51,25 @@ The website should now be accessible at http://localhost:3000 in your web browse
 ### 3. Document Structure
 <img width="274" alt="image" src="https://github.com/VeraCodes2023/fs16_6-frontend-project/assets/130740510/39d5d972-6680-4ff4-859e-e505f77cc455">     
 
-### 4. Pages
+### 4. Pages 📄
 Overview
 The E-commerce website consists of several pages, each serving a specific purpose. Here are the main pages:
-#### All Products Page(Homepage) :
+#### All Products Page(Homepage) 📄
 - URL: / <br>
 - Description: Displays all available products from the API.
 - Features:
 - Browse products.
 - Filter products by categories.
 - Sort products by price.
-#### Single Product Page:
+#### Single Product Page 📄
 - URL: /products/:id.<br>
 - Description: Displays detailed information about a single product.
 - Features:View product details.
-#### User's Profile Page:
+#### User's Profile Page 📄
 - URL: /profile.<br>
 - Description: User profile page (only available if the user is logged in).
 - Features:View and update user profile information.
-#### Cart Page:
+#### Cart Page 📄
 - URL: /cart <br>
 - Description: Shopping cart page.
 - Features:
@@ -77,7 +77,7 @@ The E-commerce website consists of several pages, each serving a specific purpos
 - Remove products from the cart.
 - Update the quantity of products in the cart.
 
-### 5. Redux Store
+### 5. Redux Store <img src="https://github.com/VeraCodes2023/fs16_6-frontend-project/assets/130740510/4e2c9c75-20a5-486b-94fe-17798a0f0b82" width="25" height="25"> 
 The application uses Redux for state management and has three main reducers:
 
 #### Product Reducer Features:
@@ -105,10 +105,6 @@ Authentication and authorization are implemented using Redux and are enforced on
 ### 7. Unit Testing
 Unit tests have been implemented for the reducers to ensure their functionality. You can run these tests using the following command:npm test
 
-### 8. Deployment link
+### 8. Deployment link <img src="https://github.com/VeraCodes2023/fs16_6-frontend-project/assets/130740510/1c758eaf-8fd5-417f-a187-281ebc37556f" width="25" height="25">
+
 https://652a4a36ac53120cf6fa9efd--cute-kleicha-f94799.netlify.app
-
-
-
-
-

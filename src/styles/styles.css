@@ -52,9 +52,11 @@
 }
 #header .headerTop .headerTopMain .right {
   float: right;
+  display: flex;
 }
 #header .headerTop .headerTopMain .right nav {
   font-size: 0;
+  margin-right: 30px;
 }
 #header .headerTop .headerTopMain .right nav a {
   border-right: 1px solid #979595;
@@ -81,6 +83,9 @@
   align-self: flex-start;
   margin-top: 20px;
   margin-left: 10px;
+}
+#header .headerTop .headerTopMain .right .themebtn {
+  align-self: center;
 }
 #header .headerLow .headerLowMain {
   width: 100%;

@@ -1,5 +1,5 @@
-import ProductTest from "../../components/types/ProductTest"
-import ProductProps from "../../components/types/product"
+import ProductTest from "../../types/ProductTest"
+import ProductProps from "../../types/product"
 
 
 export const productsData: ProductProps[] = [

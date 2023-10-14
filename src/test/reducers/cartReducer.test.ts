@@ -1,4 +1,4 @@
-import cartReducer, { addToCart, removeFromCart, toggleCartItem, handleDecrement,  handleIncrement } from "../../components/redux/reducers/cartSlice"
+import cartReducer, { addToCart, removeFromCart, toggleCartItem, handleDecrement,  handleIncrement } from "../../redux/reducers/cartSlice"
 // import  CartItem  from "../components/types/CartItems"
 import { cartData } from "../data/cartData"
 import { productsData } from "../data/productsData"

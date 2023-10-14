@@ -2,7 +2,7 @@ import { rest } from "msw";
 import { setupServer } from "msw/node";
 
 import { productsData } from "../data/productsData";
-import  ProductInput  from "../../components/types/ProductInput";
+import  ProductInput  from "../../types/ProductInput";
 import { categoriesData } from "../data/categoriesData";
 
 export const handlers = [

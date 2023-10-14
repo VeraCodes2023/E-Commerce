@@ -1,6 +1,6 @@
 import UserProfilePage from '../pages/UserProfilePage';
 import PaymentPage from '../pages/PaymentPage';
-import ProfileUpdate from '../pages/ProfileUpdate';
+import ProfileUpdate from '../component/ProfileUpdate';
 
 const privateRoutes =[
     { 

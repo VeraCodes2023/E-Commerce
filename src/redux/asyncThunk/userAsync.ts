@@ -96,15 +96,14 @@ export const loginUserAsync = createAsyncThunk<UserListProps, User, { rejectValu
   async (cred, { rejectWithValue, dispatch }) => {
       try {
           const result = await axios.post('https://api.escuelajs.co/api/v1/auth/login', cred)
-          const { access_token, refresh_token } = result.data
+          const { access_token } = result.data
+          localStorage.setItem("access_token", access_token)
+          // localStorage.setItem("refresh_token", refresh_token)
           const authenticatedResult = await dispatch(authenticateUserAsync(access_token))
           if (typeof authenticatedResult.payload === "string" || !authenticatedResult.payload) {
               throw Error(authenticatedResult.payload || "Cannot login")
           } else {
-              localStorage.setItem("access_token", access_token)
-              localStorage.setItem("refresh_token", refresh_token)
               return authenticatedResult.payload as UserListProps
-
           }
       }
       catch (e) {

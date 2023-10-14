@@ -57,12 +57,17 @@ const HeaderLogOut:React.FC = () => {
                     >
                         <FontAwesomeIcon icon={faUser} />
                     </NavLink>
-                    <NavLink to="/admin"
-                     style={({isActive}) => 
-                     {return {color: isActive ? "rgb(255, 115, 0)" : "grey"}}}
-                    >
-                        {/* <FontAwesomeIcon icon={faGauge} /> */}
-                    </NavLink>
+                    {
+                      loginUser !==null && loginUser !==undefined&& loginUser.role==="admin"?
+                      <NavLink to="/admin"
+                      style={({isActive}) => 
+                      {return {color: isActive ? "rgb(255, 115, 0)" : "grey"}}}
+                     >
+                         <FontAwesomeIcon icon={faGauge} />
+                     </NavLink> 
+                     :null
+                    }
+                  
 
                   </nav>
               </div>

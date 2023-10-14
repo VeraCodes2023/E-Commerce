@@ -1,8 +1,8 @@
-import { fetchUsersAsync, registerUser,loginUserAsync  } from "../../components/redux/asyncThunk/userAsync"
+import { fetchUsersAsync, registerUser,loginUserAsync  } from "../../redux/asyncThunk/userAsync"
 import  store from "../public/store"
 import {usersData} from "../data/usersData"
 import usersServer from "../public/userServer";
-import UserListProps from "../../components/types/UserList"
+import UserListProps from "../../types/UserList"
 
 
 beforeAll(() => usersServer.listen())

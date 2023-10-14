@@ -2,10 +2,10 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import './components/styles/styles.css';
+import './styles/styles.css';
 import { Provider } from 'react-redux';
-import store from './components/redux/store';
-import {ThemeProvider} from './components/shared/ThemeContext';
+import store from './redux/store';
+import {ThemeProvider} from './shared/ThemeContext';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);

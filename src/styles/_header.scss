@@ -51,8 +51,10 @@
             }
             .right{
                 float: right;
+                display: flex;
                 nav{
                     font-size: 0;
+                    margin-right: 30px;
                     a{
                         border-right: 1px solid #979595;
                         margin-right: 15px;
@@ -80,6 +82,9 @@
                         margin-left: 10px;
                         // border: 1px solid red;
                     }
+                }
+                .themebtn{
+                    align-self: center;
                 }
             }
         }

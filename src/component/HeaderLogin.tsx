@@ -5,8 +5,12 @@ import { faHouse } from '@fortawesome/free-solid-svg-icons';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Badge from '@mui/material/Badge';
 import {useAppSelector} from '../redux/hooks/useAppSelector';
+import {useTheme} from '../shared/ThemeContext';
+import { faToggleOn } from '@fortawesome/free-solid-svg-icons';
+
 
 const HeaderLogIn = () => {
+  const {toggleTheme } = useTheme(); 
   const cart = useAppSelector(state=>state.cartReducer)
   return (
     <header id='header'>
@@ -41,11 +45,15 @@ const HeaderLogIn = () => {
                     >
                         <FontAwesomeIcon icon={faUser} />
                     </NavLink>
+                   
                   </nav>
+                  <FontAwesomeIcon icon={faToggleOn} onClick={toggleTheme} className="themebtn"/>
               </div>
-           
+            
           </div>
+       
         </div>
+     
     </header>
   )
 }

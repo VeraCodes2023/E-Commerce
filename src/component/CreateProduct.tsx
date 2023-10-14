@@ -13,14 +13,19 @@ const CreateProduct:React.FC = () => {
     const [img,setImg]=useState([""])
     const dispatch =useAppDisPatch()
     const redirect= useNavigate()
+
     const [product,setProduct]=useState({
         title:"",
         price:0,
         description:"",
-        categoryId:1,
+        categoryId:0,
         images:[""]
     })
-    
+    const handleInputChange=(event:React.ChangeEvent<HTMLInputElement>)=>{
+      const { name, value} = event.target;
+      setProduct({...product, [name]:value} )
+   }
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
           setFile(e.target.files[0]);
@@ -53,11 +58,6 @@ const CreateProduct:React.FC = () => {
         handleUpload()
       },[handleUpload]
     )
-
-    const handleInputChange=(event:React.ChangeEvent<HTMLInputElement>)=>{
-        const { name, value} = event.target;
-        setProduct({...product, [name]:value} )
-    }
 
     const handleSubmit= async (e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault()

@@ -13,13 +13,13 @@ import {
 }from '../redux/reducers/productsSlice';
 import {fetchAllProducts,fetchCategoryProducts} from '../redux/asyncThunk/productsAsync';
 import {useAppSelector} from '../redux/hooks/useAppSelector';
-import {useAppDisPatch} from '../redux//hooks/useAppDispatch';
-import Search from './Search';
+import {useAppDisPatch} from '../redux/hooks/useAppDispatch';
+import Search from '../component/Search';
 import  useDebounce from '../redux/hooks/useDebounce';
-import ProductGrid from './ProductGrid';
+import ProductGrid from '../component/ProductGrid';
 
 const HomePage:React.FC= () => {
-
+  
     const dispatch = useAppDisPatch();
     const {
       products, 
@@ -33,6 +33,7 @@ const HomePage:React.FC= () => {
     const [value, setValue] = useState<string>("1");
   // pagination
     const [page, setPage] = useState<number>(1);
+
     const itemsPerPage =21
     const pageCount = Math.ceil(categoryProducts.length / itemsPerPage);
     const pageSearchCount= Math.ceil(filteredProducts.length / itemsPerPage);
@@ -43,7 +44,7 @@ const HomePage:React.FC= () => {
     const endIndex = startIndex + itemsPerPage;
   // retrieve all of the products
     useEffect(()=>{
-      dispatch(fetchAllProducts({offset:0, limit:200}))
+      dispatch(fetchAllProducts({offset:0, limit:220}))
     },[dispatch])
   //  handle sort out products
     const handleAscOrder=()=>{

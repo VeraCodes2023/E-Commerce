@@ -1,4 +1,4 @@
-import  CartItem  from "../../components/types/CartItems";
+import  CartItem  from "../../types/CartItems";
 // import categoriesData from "./categoriesData";
 
 export const cartData: CartItem[] = [

@@ -4,7 +4,7 @@ import {Grid} from "@mui/material";
 import TabPanel from '@mui/lab/TabPanel';
 import  ProductProps from '../types/product';
 import shoe from './shoe.png'
-import {useAppDisPatch} from '../redux//hooks/useAppDispatch';
+import {useAppDisPatch} from '../redux/hooks/useAppDispatch';
 import { addToCart } from "../redux/reducers/cartSlice";
 
 interface GridProps{
@@ -18,11 +18,12 @@ const ProductGrid:React.FC<GridProps> = ({p,value}) => {
         dispatch(addToCart(payload))
     
       }
+
   return (
     <Grid  item xs={3} id="item">
         <TabPanel value={value } key={p.id}>
             <Link to={`/details/${p.id}`}>
-                <img src={p.images? p.images[0]: shoe} className='bgPic' alt='pic'></img>
+                <img src={p.images? p.images[0]:""} className='bgPic' alt='pic'></img>
                 <div className="title">
                     <h5>{p.title}</h5>
                     <p className='price'>{p.price} Euro</p>

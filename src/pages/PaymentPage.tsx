@@ -1,5 +1,5 @@
 import React from 'react';
-import CheckoutForm from './CheckoutForm';
+import CheckoutForm from '../component/CheckoutForm';
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 const stripePromise = loadStripe('pk_test_51NzDu3A1mH33T284MDtzaydeCtgYaBm1iaNFxeATC3sXW18D1bTDfhjRM74DJ37DvaJAuwIbKxYjW74BWpeWU6sv007Xhstysq'
@@ -15,6 +15,7 @@ const PaymentPage:React.FC = () => {
   return (
     <Elements stripe={stripePromise} options={options}>
       {/* <CheckoutForm /> */}
+      <h1>payment page</h1>
     </Elements>
   )
 }

@@ -33,7 +33,7 @@ const columns: readonly Column[] = [
 
 
 const AdminDashBoard:React.FC =()=>{
-
+  // const access_token = localStorage.getItem("access_token");
   const redirect = useNavigate()
   const {products,loading, error} = useAppSelector(state=>state.productReducer)
   const dispatch = useAppDisPatch()
