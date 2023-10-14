@@ -1,25 +1,19 @@
 import React,{useState,useEffect} from 'react';
-import { TextField, Button } from '@mui/material';
-import UserListProps from '../types/UserList';
 import { Link,useNavigate } from 'react-router-dom';
 import  {useAppDisPatch} from '../redux/hooks/useAppDispatch';
 import  {useAppSelector} from '../redux/hooks/useAppSelector';
-import  {authenticateUserAsync,loginUserAsync} from '../redux/asyncThunk/userAsync'
+import  {loginUserAsync} from '../redux/asyncThunk/userAsync';
+
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 const UserLogin:React.FC = () => {
-    const access_token = localStorage.getItem("access_token");
     const {error,loginUser}=useAppSelector(state=>state.usersReducer)
     const dispatch = useAppDisPatch()
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
     const [message,setMessage]=useState("")
-    const [isFormValid, setIsFormValid] = useState(false);
     const navigate = useNavigate()
-
-    const validateForm = () => {
-        const isValid = email.length >5 && password.length > 4;
-        setIsFormValid(isValid);
-      };
 
     useEffect(()=>{
         if(loginUser !==undefined && loginUser !==null){
@@ -62,18 +56,18 @@ const UserLogin:React.FC = () => {
             <h2>User Login</h2>
         </div>
         <form  id='userLoginForm'  onSubmit={e=>loginHandler(e)}>
-            {message? <p className='reminder'>{message}</p>:null}
-            {error? <p className='error'>{error}</p>:null}
+            <Stack sx={{ width: '110%', marginBottom:1 }} spacing={2}>
+                {message?<Alert severity="success">{message}</Alert>:null}
+                {error?<Alert severity="error">{error}</Alert>:null}
+            </Stack>
             <div>
                 <input type="email"  value={email}  onChange={e=>{
                     setEmail(e.target.value)
-                    validateForm()
                     }}placeholder='Email'/>
             </div>
             <div>
                 <input type="password" value={password}  onChange={e=>{
                     setPassword(e.target.value)
-                    validateForm()
                     }}  placeholder='Password'/>
             </div>
             <button>Login</button>

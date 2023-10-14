@@ -43,7 +43,7 @@
     }
   },
   "scripts": {
-    "compile": "sass -w  src/components/styles/styles.scss  src/components/styles/styles.css",
+    "compile": "sass -w  src/styles/styles.scss  src/styles/styles.css",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

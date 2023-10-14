@@ -15,6 +15,10 @@ import { deleteProduct } from '../redux/asyncThunk/productsAsync';
 import { fetchAllProducts } from '../redux/asyncThunk/productsAsync';
 import ProductProps from '../types/product';
 
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+import { LoadingButton } from '@mui/lab';
+
 interface Column {
   id: 'title' | 'price' | 'description' | 'img'| 'update'| 'delete';
   label: string;
@@ -87,9 +91,11 @@ const AdminDashBoard:React.FC =()=>{
    <Button onClick={()=>redirect('/createProduct', {replace:true})}>Add New Product</Button>
    <Paper sx={{ width: '70%', overflow: 'hidden', margin:"auto",
     marginTop:1, marginBottom:9}}>
-    {loading? <p>{loading}</p>:null}
-    {message? <p className='reminder'>{message}</p>:null}
-    {error? <p className='error'>{error}</p>:null}
+     <Stack sx={{ width: '100%', marginBottom:1 }} spacing={2}>
+          {message?<Alert severity="success">{message}</Alert>:null}
+          {error?<Alert severity="error">{error}</Alert>:null}
+          {loading? <LoadingButton/>:null}
+     </Stack>
     <TableContainer sx={{ maxHeight: 580 }}>
       <Table stickyHeader aria-label="sticky table">
         <TableHead  >

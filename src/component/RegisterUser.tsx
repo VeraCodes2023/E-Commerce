@@ -4,6 +4,10 @@ import { registerUser } from '../redux/asyncThunk/userAsync';
 import axios from 'axios';
 import { useAppDisPatch }from '../redux/hooks/useAppDispatch';
 
+
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
 const RegisterUser:React.FC = () => {
     const redirect = useNavigate()
     const [isFormValid, setIsFormValid] = useState(false);
@@ -99,7 +103,10 @@ const RegisterUser:React.FC = () => {
 
   return (
     <form id='createUser' onSubmit={e=>handleSubmit(e)}>
-        {warn? <p className='error'>{warn}</p>:null}
+        <Stack sx={{ width: '100%', marginBottom:1 }} spacing={2}>
+          {message?<Alert severity="success">{message}</Alert>:null}
+          {warn?<Alert severity="error">{warn}</Alert>:null}
+        </Stack>
         <div>
             <input type="text"  name='name'    placeholder='Name' value={user.name} onChange={handleInputChange} />
         </div>
@@ -114,7 +121,6 @@ const RegisterUser:React.FC = () => {
             <input type="file"  name="avatar" multiple  onChange={handleFileChange}  placeholder='avatar'/>
         </div>
         <button>Register Account</button>
-        {message? <p className='reminder'>{message}</p>:null}
     </form>
   )
 }

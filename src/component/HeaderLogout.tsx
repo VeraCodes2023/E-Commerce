@@ -10,6 +10,9 @@ import {useAppDisPatch} from '../redux/hooks/useAppDispatch';
 import { useNavigate } from 'react-router-dom';
 import {useAppSelector} from '../redux/hooks/useAppSelector';
 import {logOut}from '../redux/reducers/usersSlice';
+import {useTheme} from '../shared/ThemeContext';
+import { faToggleOn } from '@fortawesome/free-solid-svg-icons';
+
 
 const HeaderLogOut:React.FC = () => {
   
@@ -17,10 +20,10 @@ const HeaderLogOut:React.FC = () => {
     const {loginUser} = useAppSelector(state=>state.usersReducer)
     const cart = useAppSelector(state=>state.cartReducer)
     const redirect = useNavigate()
+    const {toggleTheme } = useTheme(); 
 
     const logoutHandler = ()=>{
       dispatch(logOut({}))
-      // localStorage.clear()
       redirect('/',{replace:true})
     }
 
@@ -67,9 +70,8 @@ const HeaderLogOut:React.FC = () => {
                      </NavLink> 
                      :null
                     }
-                  
-
                   </nav>
+                  <FontAwesomeIcon icon={faToggleOn} onClick={toggleTheme} className="themebtn"/>
               </div>
           </div>
         </div>
