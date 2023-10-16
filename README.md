@@ -8,9 +8,6 @@
 ## Introduction
 This documentation provides information on how to use and understand the features of the E-commerce website data from the https://fakeapi.platzi.com/ API endpoints. The website is designed to showcase products, allow users to browse, add items to their cart, and perform various actions such as registration, login, and profile management.
 
-## Data Flow
-<img width="570" alt="image" src="https://github.com/VeraCodes2023/fs16_6-frontend-project/assets/130740510/89bff96a-d753-49aa-a6c2-aff581339b1b">
-
 ## Table of Contents
 - Getting Started
 - Dev Technics
@@ -98,9 +95,9 @@ The application uses Redux for state management and has three main reducers:
 
 ### 6. Private Routes
 
-Certain routes within the application are protected and require user authentication. For example:The route to the user profile page (/profile) and admin dashboard (/admin) is only accessible if the user is logged in.
+Certain routes within the application are protected and require user authentication. For example:The route to the user profile page (/profile) and admin dashboard (/admin) is only accessible if the user is logged in. Authentication and authorization are implemented using Redux and are enforced on the client side.
 
-Authentication and authorization are implemented using Redux and are enforced on the client side.
+<img width="570" alt="image" src="https://github.com/VeraCodes2023/fs16_6-frontend-project/assets/130740510/89bff96a-d753-49aa-a6c2-aff581339b1b">
 
 ### 7. Unit Testing
 Unit tests have been implemented for the reducers to ensure their functionality. You can run these tests using the following command:npm test
