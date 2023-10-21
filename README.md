@@ -102,7 +102,6 @@ Certain routes within the application are protected and require user authenticat
 ### 7. Unit Testing
 Unit tests have been implemented for the reducers to ensure their functionality. You can run these tests using the following command:npm test
 
-### 8. Deployment link <img src="https://github.com/VeraCodes2023/fs16_6-frontend-project/assets/130740510/1c758eaf-8fd5-417f-a187-281ebc37556f" width="25" height="25">
-
+### 8. Deployment link 
 https://652aab6e603f7a41c40d1d18--scintillating-crepe-55caa4.netlify.app
 
