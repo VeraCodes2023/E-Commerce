@@ -1,19 +1,14 @@
-import React,{useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import {faTruck} from '@fortawesome/free-solid-svg-icons'
 import {faPhone} from '@fortawesome/free-solid-svg-icons'
-import {userProfileAsync,authenticateUserAsync,loginUserAsync} from '../redux/asyncThunk/userAsync';
 import  { useAppSelector } from '../redux/hooks/useAppSelector';
-import UserListProps from '../types/UserList';
-import {useAppDisPatch} from '../redux/hooks/useAppDispatch'
+
 
 const UserProfilePage:React.FC =()=>{
-  const dispatch = useAppDisPatch()
   const redirect = useNavigate()
-  // const {access_token,} = useAppSelector(state=>state.authReducer)
-  const [currentUser, setCurrentUser]=useState<UserListProps>()
   const {loginUser} = useAppSelector(state=>state.usersReducer)
 
   const handleUpdateUser=()=>{

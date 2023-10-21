@@ -11,15 +11,18 @@ import HeaderLogOut from './component/HeaderLogout';
 import {useTheme} from './shared/ThemeContext';
 import  {useAppDisPatch} from './redux/hooks/useAppDispatch';
 import  {authenticateUserAsync} from './redux/asyncThunk/userAsync'
+import  {fetchAllProducts}from './redux/asyncThunk/productsAsync'
+
+
 
 const App = () => {
   const dispatch = useAppDisPatch()
   const { theme} = useTheme(); 
   const loginUser= useAppSelector(state=>state.usersReducer.loginUser)
-  
-  if(loginUser !==null)
-  console.log(loginUser)
 
+  useEffect(()=>{
+    dispatch(fetchAllProducts({offset:0, limit:220}))
+  },[dispatch])
 
   useEffect(() => {
     const access_token = localStorage.getItem("access_token");
@@ -57,7 +60,6 @@ const App = () => {
               })
              
             }
-
             {
               adminRoutes.map(({path,component:Component})=>{
                 return (<Route 
@@ -66,9 +68,7 @@ const App = () => {
                   element={ (loginUser !==null && loginUser !==undefined && loginUser.role ==="admin")?
                   <Component/>:<Navigate to="/login"/>}>
                 </Route>)
-              }
-                
-              )
+              })
             }
             </Routes>
             <Footer/>

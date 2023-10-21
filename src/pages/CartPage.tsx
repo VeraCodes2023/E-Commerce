@@ -9,8 +9,8 @@ import {
   handleIncrement,
   handleDecrement
 } from '../redux/reducers/cartSlice';
-import shoe from './shoe.png'
- 
+
+
 const CartPage:React.FC = () => {
 
   const disptach = useAppDisPatch()

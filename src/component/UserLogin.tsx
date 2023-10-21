@@ -58,7 +58,7 @@ const UserLogin:React.FC = () => {
         <form  id='userLoginForm'  onSubmit={e=>loginHandler(e)}>
             <Stack sx={{ width: '110%', marginBottom:1 }} spacing={2}>
                 {message?<Alert severity="success">{message}</Alert>:null}
-                {error?<Alert severity="error">{error}</Alert>:null}
+                {loginUser !==undefined && loginUser !==null && error?<Alert severity="error">{error}</Alert>:null}
             </Stack>
             <div>
                 <input type="email"  value={email}  onChange={e=>{

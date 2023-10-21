@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import {Grid} from "@mui/material";
 import TabPanel from '@mui/lab/TabPanel';
 import  ProductProps from '../types/product';
-import shoe from './shoe.png'
 import {useAppDisPatch} from '../redux/hooks/useAppDispatch';
 import { addToCart } from "../redux/reducers/cartSlice";
 

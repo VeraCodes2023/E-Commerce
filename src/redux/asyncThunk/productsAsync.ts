@@ -44,7 +44,7 @@ export const fetchSingleAsync = createAsyncThunk(
         return rejectWithValue(e);
       }
     }
-  );
+);
 
 
 

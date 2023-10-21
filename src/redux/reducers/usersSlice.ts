@@ -1,6 +1,5 @@
 import {PayloadAction , createSlice} from '@reduxjs/toolkit';
 import UserListProps from '../../types/UserList';
-import  UpdateProfileProps from '../../types/UpdateProfile';
 
 import  {
     fetchUsersAsync, 

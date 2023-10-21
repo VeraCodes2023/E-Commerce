@@ -2,7 +2,6 @@ import HomePage from '../pages/HomePage';
 import SingleProduct from '../pages/SingleProduct';
 import UserLogin from '../component/UserLogin';
 import RegisterUser from '../component/RegisterUser';
-import UserSignUp from '../component/CreateProduct';
 import CartPage from '../pages/CartPage';
 import ErrorPage from '../pages/ErrorPage';
 

@@ -1,16 +1,8 @@
 import {createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import UserProps from '../../types/user';
 import UserListProps from '../../types/UserList';
-
-import AddUserProps from '../../types/UserInput';
-import UserLoginProps from '../../types/user'
 import UserInputProps from '../../types/UserInput'
 import User from '../../types/UserAuth';
-import  UpdateProfileProps from '../../types/UpdateProfile';
-const BASE_URL = "https://api.escuelajs.co/api/v1/auth";
-const REGISTER="/refresh-token";
-
 
 export const fetchUsersAsync = createAsyncThunk<UserListProps[], void, { rejectValue: string }>(
   'fetchUsersAsync',

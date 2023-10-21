@@ -1,10 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import ProductProps from '../../types/product';
-import ProductInput from '../../types/ProductInput';
 import {
     fetchAllProducts,
     fetchCategoryProducts,
-    fetchSingleAsync,
     addProduct,
     updateProduct,
     deleteProduct
