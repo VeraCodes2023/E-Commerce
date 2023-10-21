@@ -9,14 +9,14 @@
 This documentation provides information on how to use and understand the features of the E-commerce website data from the https://fakeapi.platzi.com/ API endpoints. The website is designed to showcase products, allow users to browse, add items to their cart, and perform various actions such as registration, login, and profile management.
 
 ## Table of Contents
-- [Getting Started](### 1. Getting Started)
-- [Dev Technics](### 2. Dev Technics)
-- [Document Structure](### 3. Document Structure) 
-- [Pages](### 4.Pages 📄)
-- [Redux Store](### 5. Redux Store)
-- [Private Routes](### 6. Private Routes)
-- [Unit Testing](### 7. Unit Testing)
-- [Deployment](### 8.Deployment)
+- [Getting Started](#1. Getting Started)
+- [Dev Technics](# 2. Dev Technics)
+- [Document Structure](# 3. Document Structure) 
+- [Pages](# 4.Pages 📄)
+- [Redux Store](# 5. Redux Store)
+- [Private Routes](# 6. Private Routes)
+- [Unit Testing](# 7. Unit Testing)
+- [Deployment](# 8.Deployment)
 
 ### 1. Getting Started
 Before using the E-commerce website, ensure that you have the following:
