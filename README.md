@@ -103,5 +103,6 @@ Certain routes within the application are protected and require user authenticat
 Unit tests have been implemented for the reducers to ensure their functionality. You can run these tests using the following command:npm test
 
 ### 8. Deployment link 
-https://652aab6e603f7a41c40d1d18--scintillating-crepe-55caa4.netlify.app
+https://fullstackproject2023.onrender.com
+
 
