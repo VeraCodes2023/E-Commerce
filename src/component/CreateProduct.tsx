@@ -21,8 +21,9 @@ const CreateProduct:React.FC = () => {
         title:"",
         price:0,
         description:"",
+        inventory:0,
         categoryId:0,
-        images:[""]
+        images:[{url:""}]
     })
     const handleInputChange=(event:React.ChangeEvent<HTMLInputElement>)=>{
       const { name, value} = event.target;
@@ -68,17 +69,20 @@ const CreateProduct:React.FC = () => {
             title:product.title,
             price:product.price,
             description:product.description,
-            images:[img.toString()],
+            inventory:product.inventory,
+            images:[{ url: img.toString() }],
             categoryId:product.categoryId
         }
+        console.log(newProduct)
         await  dispatch(addProduct(newProduct))
         setMessage("Product has been added successfully... wait for page redirect")
         setProduct({
             title:"",
             price:0,
             description:"",
+            inventory:0,
             categoryId:1,
-            images:[""]
+            images:[{ url:"" }],
         })
        redirect('/admin', {replace:true})  
     }
@@ -100,6 +104,10 @@ const CreateProduct:React.FC = () => {
         <div>
             <label htmlFor="">Product Description</label>
             <input type="text"  name='description'  placeholder='Description' value={product.description} onChange={handleInputChange}/>
+        </div>
+        <div>
+            <label htmlFor="">Product Inventory</label>
+            <input type="number"  name='inventory'  placeholder='Inventory' value={product.inventory} onChange={handleInputChange}/>
         </div>
         <div>
             <label htmlFor="">Product Category ID</label>

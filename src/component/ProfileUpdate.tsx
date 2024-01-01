@@ -16,9 +16,14 @@ const ProfileUpdate:React.FC = () => {
     const [user,setUser]=useState(
       {
         name:"",
-        email:"",
-        password:"",
-        avatar:img
+        avatar:img,
+        addresses:[{
+          street:"",
+          city:"",
+          state:"",
+          postalCode:"",
+          country:""
+        }]
       })
     const handleInputChange=(event:React.ChangeEvent<HTMLInputElement>)=>{
         const { name, value} = event.target;
@@ -26,14 +31,21 @@ const ProfileUpdate:React.FC = () => {
     }
     
     useEffect(()=>{
+        // var storedAddress=localStorage.getItem('addresses')
+        // const parsedAddresses = storedAddress ? JSON.parse(storedAddress) : [];
         setUser({
-            name:localStorage.getItem('name')?? '',
-            email:localStorage.getItem('email')??'',
-            password:localStorage.getItem('password')??'',
-            avatar:localStorage.getItem('avatar')??''
+            name:localStorage.getItem('name')??'',
+            avatar:localStorage.getItem('avatar')??'',
+            addresses: JSON.parse(localStorage.getItem('addresses') || '[]') as {
+              street: string;
+              city: string;
+              state: string;
+              postalCode: string;
+              country: string;
+          }[]
         })
-
     },[])
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.files && e.target.files.length > 0) {
         setFile(e.target.files[0]);
@@ -65,47 +77,123 @@ const ProfileUpdate:React.FC = () => {
         handleUpload()
       },[handleUpload]
     )
+
+      const storedAddresses = JSON.parse(localStorage.getItem('addresses') || '[]') as {
+        street: string;
+        city: string;
+        state: string;
+        postalCode: string;
+        country: string;
+      }[];
+      const updatedAddress = storedAddresses.length > 0 ? {
+        street: storedAddresses[0].street,
+        city: storedAddresses[0].city,
+        state: storedAddresses[0].state,
+        postalCode: storedAddresses[0].postalCode,
+        country: storedAddresses[0].country,
+    } : {
+        street: '',
+        city: '',
+        state: '',
+        postalCode: '',
+        country: '',
+    };
+
   
+    // const updatedAddress = {
+    //   street: user.addresses[0]!.street,
+    //   city: user.addresses[0]!.city,
+    //   state: user.addresses[0]!.state,
+    //   postalCode: user.addresses[0]!.postalCode,
+    //   country: user.addresses[0]!.country,
+    // };
+    const handleAddressChange = (event:React.ChangeEvent<HTMLInputElement>,index: number) => {
+      const {tabIndex, name, value} = event.target;
+      setUser(prevUser => {
+        const updatedAddressDTOs = [...prevUser.addresses];
+        updatedAddressDTOs[tabIndex] = {
+          ...updatedAddressDTOs[tabIndex],
+          [name]: value
+        };
+        return { ...prevUser, addresses: updatedAddressDTOs };
+      });
+    };
 
     const handleUpdateProfile= async (e:React.FormEvent)=>{
         e.preventDefault()
-        const id = Number( localStorage.getItem('id') )
-        const newInfo={
-            name:user.name,
-            email:user.email,
-            password:user.password,
-            avatar:user.avatar
-        }
-       await dispatch(updateUser({id,newInfo}))
+   
+        const updateProfile = {
+          name: user.name,
+          avatar: img,
+          addresses: [updatedAddress] as [{ street: string; city: string; state: string; postalCode: string; country: string }],
+        };
+   
+       await dispatch(updateUser(updateProfile))
        setMessage("profile has been updated successfully... wait page redirect")
        setUser({
         name:"",
-        email:"",
-        password:"",
-        avatar:""
+        avatar:"",
+        addresses:[]
        })
        setTimeout(()=>{redirect('/profile')},2000)
       
     }
 
-
   return (
     <form id='createUser' onSubmit={e=>handleUpdateProfile(e)}>
+        <h1>update user profile form</h1>
         {message? <p className='reminder'>{message}</p>:null}
         {error? <p className='error'>{error}</p>:null}
         <div>
             <input type="text"  name='name'    placeholder='Name' value={user.name} onChange={handleInputChange} />
         </div>
-        <div>
-            <input type="email"  name='email'    placeholder='Email' value={user.email} onChange={handleInputChange} />
-        </div>
-        <div>
-            <input type="password"  name='password'    placeholder='Password' value={user.password} onChange={handleInputChange} />
-        </div>
+       
         <div>
             <label htmlFor="input">Upload Profile Photo</label>
             <input type="file"  name="avatar" multiple  onChange={handleFileChange}  placeholder='avatar'/>
         </div>
+        {
+          user.addresses.map((address,index) => (
+          <div key={index}>
+            <input
+              type="text"
+              name='street'
+              placeholder="Street"
+              value={address.street}
+              onChange={(e) => handleAddressChange(e, index)}
+            />
+            <input
+              type="text"
+              name='city'
+              placeholder="City"
+              value={address.city}
+              onChange={(e) => handleAddressChange( e,index)}
+            />
+            <input
+              type="text"
+              name='state'
+              placeholder="State"
+              value={address.state}
+              onChange={(e) => handleAddressChange( e,index)}
+            />
+
+            <input
+              type="text"
+              name='postalCode'
+              placeholder="PostalCode"
+              value={address.postalCode}
+              onChange={(e) => handleAddressChange( e,index)}
+            />
+              <input
+              type="text"
+              name='country'
+              placeholder="Country"
+              value={address.country}
+              onChange={(e) => handleAddressChange( e,index)}
+            />
+          </div>
+        ))
+      }
         <button>Update Profile</button>
     </form>
   )

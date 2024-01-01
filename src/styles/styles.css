@@ -428,7 +428,7 @@
 
 #profile {
   border: 1px solid red;
-  width: 320px;
+  width: 40%;
   margin: auto;
   border: 1px solid rgb(231, 227, 227);
   height: 400px;
@@ -646,6 +646,90 @@
   color: black;
   transform: scaleX(1.02);
   cursor: pointer;
+}
+
+#order {
+  padding: 30px;
+  width: 50%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 2px 4px 4px rgba(195, 194, 194, 0.2);
+}
+#order .orderId {
+  align-self: flex-end;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+#order .orderId > h3 {
+  align-self: flex-end;
+  margin-bottom: 15px;
+}
+#order .orderId > p {
+  color: grey;
+  font-size: 14px;
+  margin-bottom: 10px;
+  align-self: flex-end;
+}
+#order .delivery {
+  margin-bottom: 50px;
+}
+#order .createAt {
+  width: 100%;
+}
+#order .ordertable tr {
+  border-bottom: 1px solid rgb(230, 228, 228);
+}
+#order .ordertable tr th {
+  text-align: center;
+  border-bottom: 1px solid orangered;
+  padding-bottom: 10px;
+}
+#order .ordertable tbody {
+  text-align: center;
+}
+#order .ordertable tbody tr td {
+  padding-top: 10px;
+}
+#order .ordertable tbody .btn {
+  width: 100px;
+  height: 34px;
+  background-color: black;
+  border: none;
+  border-radius: 3px;
+  color: rgb(230, 228, 228);
+  font-size: 12px;
+  transition: ease 0.2s;
+  font-size: 16px;
+  margin-top: 50px;
+}
+#order .ordertable tbody .btn:hover {
+  background-color: coral;
+  color: black;
+  transform: scaleX(1.02);
+  cursor: pointer;
+}
+#order .ordertable tfoot tr td:last-child {
+  padding-top: 20px;
+  padding-right: 30px;
+  font-weight: bold;
+}
+#order .orderBtn {
+  margin-top: 20px;
+  width: 160px;
+  height: 28px;
+  background-color: black;
+  border: none;
+  border-radius: 3px;
+  color: rgb(230, 228, 228);
+  font-size: 12px;
+  align-self: flex-start;
+  margin-top: 40px;
+  margin-right: 15px;
+}
+#order .orderBtn:hover {
+  background-color: rgb(255, 115, 0);
 }
 
 body .reminder {

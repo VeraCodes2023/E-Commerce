@@ -6,6 +6,7 @@ import { useAppDisPatch }from '../redux/hooks/useAppDispatch';
 
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import UserInputProps from '../types/UserInput';
 
 const RegisterUser:React.FC = () => {
     const redirect = useNavigate()
@@ -21,7 +22,14 @@ const RegisterUser:React.FC = () => {
         name:"",
         email:"",
         password:"",
-        avatar:""
+        avatar:"",
+        addresses:[{
+          street:"",
+          city:"",
+          state:"",
+          postalCode:"",
+          country:""
+        }]
     })
 
     const validateForm = () => {
@@ -66,16 +74,35 @@ const RegisterUser:React.FC = () => {
         validateForm()
     }
 
+    const handleAddressChange = (event:React.ChangeEvent<HTMLInputElement>,index: number) => {
+      const {tabIndex, name, value} = event.target;
+      setUser(prevUser => {
+        const updatedAddressDTOs = [...prevUser.addresses];
+        updatedAddressDTOs[tabIndex] = {
+          ...updatedAddressDTOs[tabIndex],
+          [name]: value
+        };
+        return { ...prevUser, addresses: updatedAddressDTOs };
+      });
+    };
+
     const handleSubmit= async (e:React.FormEvent)=>{
       e.preventDefault()
       if(isFormValid){
           
-            const newUser ={
+            const newUser: UserInputProps ={
             name:user.name,
             email:user.email,
             password:user.password,
             avatar:img,
-            }
+            addresses: [{
+              street: user.addresses[0].street,
+              city: user.addresses[0].city,
+              state: user.addresses[0].state,
+              postalCode: user.addresses[0].postalCode,
+              country: user.addresses[0].country,
+            }]
+          }
           if(newUser)
           await  dispatch(registerUser(newUser))
           .then(()=>{
@@ -83,7 +110,14 @@ const RegisterUser:React.FC = () => {
                   name:"",
                   email:"",
                   password:"",
-                  avatar:""
+                  avatar:"",
+                  addresses:[{
+                    street:"",
+                    city:"",
+                    state:"",
+                    postalCode:"",
+                    country:""
+                  }]
                 })
                 setMessage("Registered Account successfully, please login...")
                 setTimeout(()=>{ 
@@ -106,18 +140,65 @@ const RegisterUser:React.FC = () => {
           {message?<Alert severity="success">{message}</Alert>:null}
           {warn?<Alert severity="error">{warn}</Alert>:null}
         </Stack>
-        <div>
-            <input type="text"  name='name'    placeholder='Name' value={user.name} onChange={handleInputChange} />
-        </div>
-        <div>
-            <input type="email"  name='email'    placeholder='Email' value={user.email} onChange={handleInputChange} />
-        </div>
-        <div>
-            <input type="password"  name='password'    placeholder='Password' value={user.password} onChange={handleInputChange} />
-        </div>
-        <div>
+        <div className='basicinfo'>
+          <div>
+              <input type="text"  name='name'    placeholder='Name' value={user.name} onChange={handleInputChange} />
+          </div>
+          <div>
+              <input type="email"  name='email'    placeholder='Email' value={user.email} onChange={handleInputChange} />
+          </div>
+          <div>
+              <input type="password"  name='password'    placeholder='Password' value={user.password} onChange={handleInputChange} />
+          </div>
+          <div>
             <label htmlFor="input">Upload Profile Photo</label>
             <input type="file"  name="avatar" multiple  onChange={handleFileChange}  placeholder='avatar'/>
+          </div>
+        </div>
+        <div className='address'>
+        {
+          user.addresses.map((address,index) => (
+          <div key={index}>
+            <input
+              type="text"
+              name='street'
+              placeholder="Street"
+              value={address.street}
+              onChange={(e) => handleAddressChange(e, index)}
+            />
+            <input
+              type="text"
+              name='city'
+              placeholder="City"
+              value={address.city}
+              onChange={(e) => handleAddressChange( e,index)}
+            />
+            <input
+              type="text"
+              name='state'
+              placeholder="State"
+              value={address.state}
+              onChange={(e) => handleAddressChange( e,index)}
+            />
+
+            <input
+              type="text"
+              name='postalCode'
+              placeholder="PostalCode"
+              value={address.postalCode}
+              onChange={(e) => handleAddressChange( e,index)}
+            />
+
+              <input
+              type="text"
+              name='country'
+              placeholder="Country"
+              value={address.country}
+              onChange={(e) => handleAddressChange( e,index)}
+            />
+          </div>
+        ))
+      }
         </div>
         <button>Register Account</button>
     </form>

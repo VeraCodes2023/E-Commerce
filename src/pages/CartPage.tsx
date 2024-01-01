@@ -7,8 +7,12 @@ import {
   removeFromCart, 
   toggleCartItem, 
   handleIncrement,
-  handleDecrement
+  handleDecrement,
+  clearCart
 } from '../redux/reducers/cartSlice';
+
+import {createOrderAsync} from "../redux/asyncThunk/orderAsync";
+import CreateOrder from '../types/CreateOrder';
 
 
 const CartPage:React.FC = () => {
@@ -17,19 +21,19 @@ const CartPage:React.FC = () => {
   const shopCartItems = useAppSelector (state =>state.cartReducer)
   const redirect = useNavigate()
 
-  const handleToggleCheckbox=(itemId:number)=>{
+  const handleToggleCheckbox=(itemId:string)=>{
     disptach(toggleCartItem(itemId))
   };
 
-  const deleteItem =(id:number)=>{
+  const deleteItem =(id:string)=>{
     disptach(removeFromCart(id))   
   }
 
-  const handleIncrementQuantity = (itemId:number) => {
+  const handleIncrementQuantity = (itemId:string) => {
     disptach(handleIncrement(itemId))
   };
 
-  const handleDecrementQuantity = (itemId:number) => {
+  const handleDecrementQuantity = (itemId:string) => {
     disptach(handleDecrement(itemId))
   };
 
@@ -47,7 +51,27 @@ const CartPage:React.FC = () => {
 
     return totalPrice;
   };
-  
+
+
+const createOrder= async ()=>{
+
+  const newOrderItems = shopCartItems.map(item => {
+    return {
+      productId: item.id, 
+      quantity: item.quantity 
+    };
+  });
+
+  const newOrder: CreateOrder = {
+    purchaseItems: newOrderItems
+  };
+
+   await disptach(createOrderAsync(newOrder))
+   disptach(clearCart())
+   redirect('/order', { replace: true, state: { cartItems: shopCartItems } });
+}
+
+
   return (
         <table id="cart">
           <thead className='tableheader'>
@@ -70,9 +94,13 @@ const CartPage:React.FC = () => {
                   onChange={()=>handleToggleCheckbox(item.id) }
                 />
               </td>
-              <td>
-                <img src={item.images? item.images[0]:""} alt="pic" />
-              </td>
+                {
+                  item.images && item.images.length > 0 &&
+                  <td>
+                      <img src={item.images[0].url} alt="pic"/>
+                  </td>
+                }
+          
               <td>
                  {item.title}
               </td>
@@ -108,7 +136,7 @@ const CartPage:React.FC = () => {
               {
                 shopCartItems.length <1?(<th></th>) : 
                 <th>
-                  <button onClick={()=>redirect('/pay',{replace:true})}>Check Out</button>
+                  <button onClick={()=>createOrder()}>Generate Order</button>
                 </th>
               }
               
@@ -119,3 +147,4 @@ const CartPage:React.FC = () => {
 }
 
 export default CartPage
+

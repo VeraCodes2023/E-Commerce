@@ -1,9 +1,8 @@
-import ProductInput from "./ProductInput";
-import ProductProps from "./product";
-
-interface updateProductProps {
-    id:number; 
-    updatedProduct:ProductProps
+interface UpdateProductProps {
+    title:string,
+    price:number,
+    description:string,
+    inventory: number
 }
-export default updateProductProps
+export default UpdateProductProps
 

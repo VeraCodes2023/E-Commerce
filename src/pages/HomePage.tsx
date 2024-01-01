@@ -11,7 +11,8 @@ import {
   getFilteredProducts,
   sortProductsbyPrice,
 }from '../redux/reducers/productsSlice';
-import {fetchAllProducts,fetchCategoryProducts} from '../redux/asyncThunk/productsAsync';
+import {fetchCategories}from '../redux/asyncThunk/categorysAsync';
+import {fetchAllProducts} from '../redux/asyncThunk/productsAsync';
 import {useAppSelector} from '../redux/hooks/useAppSelector';
 import {useAppDisPatch} from '../redux/hooks/useAppDispatch';
 import Search from '../component/Search';
@@ -28,11 +29,16 @@ const HomePage:React.FC= () => {
       loading,
       error
     }=useAppSelector(state=>state.productReducer);
+
+    const {categories} = useAppSelector(state=>state.categoryReducer)
+
     const [searchValue,setSearchValue]=useState<string>("")
     const debouncedSearchValue:string=useDebounce(searchValue,550)
     const [value, setValue] = useState<string>("1");
   // pagination
     const [page, setPage] = useState<number>(1);
+    // console.log(categoryProducts)
+
 
     const itemsPerPage =21
     const pageCount = Math.ceil(categoryProducts.length / itemsPerPage);
@@ -54,12 +60,16 @@ const HomePage:React.FC= () => {
       dispatch(sortProductsbyPrice("desc"))
     }
     useEffect(()=>{
-      dispatch(fetchCategoryProducts())
+      dispatch(fetchCategories())
     },[dispatch])
+    // console.log(categories);
+
 
 // the category nav part needs to loop the name of category 
-    const cateList:string[] = products.map(p=>p.category.name)
-    const cateIDs:number[] = products.map(p=>p.category.id)
+    const cateList: string[] = Array.isArray(categories) ? categories.map(p => p.name) : [];
+    // const cateList:string[] = categories && categories.map(p=>p.name)
+    const cateIDs: number[] = Array.isArray(categories) ? categories.map(p => p.id) : [];
+    // const cateIDs:number[] = categories && categories.map(p=>p.id)
     const uniqueCateNameList:string[] = [...new Set(cateList)];
     const uniqueIDList = [...new Set(cateIDs)];
     const OrderedCateList:string[] = [];
@@ -115,10 +125,10 @@ const HomePage:React.FC= () => {
             </div>
         </div>
       </div>
-      <Box sx={{ width: '80%', typography: 'body1',  margin:"auto"}}>
-         <TabContext value={value}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <TabList onChange={handleChange} aria-label="lab API tabs example">
+      <Box sx={{ width: '80%', margin:"auto"}}>
+         <TabContext value={value} >
+          <Box sx={{marginBottom:3, height:"auto"}}>
+            <TabList onChange={handleChange}>
               {
                   OrderedCateList && OrderedCateList.map((p,index)=>
                   <Tab label={p} value={(index+1).toString()} key={index} />

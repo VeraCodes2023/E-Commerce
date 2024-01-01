@@ -1,21 +1,13 @@
-interface Category{
-    id:number,
-    name:string,
-    image:string,
-    creationAt:string,
-    updatedAt:string
-}
-
 interface ProductProps{
-    id:number,
+    id:string,
     title:string,
     price:number,
     description:string,
-    images:string[],
+    inventory: number,
+    images: { url: string }[]; 
     creationAt:string,
     updatedAt:string,
-    category:Category
+    categoryId:number
 }
-
 
 export default ProductProps

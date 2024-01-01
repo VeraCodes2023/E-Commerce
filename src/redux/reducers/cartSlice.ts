@@ -17,28 +17,32 @@ const cartSlice = createSlice({
                 state.push(cartItem)
             }
         },
-        removeFromCart: (state, action: PayloadAction<number>) => {
+        removeFromCart: (state, action: PayloadAction<string>) => {
             const idToRemove = action.payload
             return state.filter((item) => item.id !== idToRemove);
         },
-        toggleCartItem: (state, action: PayloadAction<number>) => {
+        toggleCartItem: (state, action: PayloadAction<string>) => {
             const itemId = action.payload;
             const item = state.find(item => item.id === itemId);
             if (item) {
                 item.isChecked = !item.isChecked;
             }
         },
-        handleIncrement:(state, action:PayloadAction<number>)=>{
+        handleIncrement:(state, action:PayloadAction<string>)=>{
             return state.map(item =>item.id === action.payload ? {...item,quantity:item.quantity+1}:item)
         },
-        handleDecrement:(state, action:PayloadAction<number>)=>{
+        handleDecrement:(state, action:PayloadAction<string>)=>{
             return state.map(item=>item.id === action.payload && item.quantity >1? {...item, quantity:item.quantity-1}:item)
         },
+        clearCart:(state)=>{
+            localStorage.removeItem('cart');
+            return [];
+        }
     }
     
 })
 
 
 const cartReducer = cartSlice.reducer
-export const {  addToCart,removeFromCart,toggleCartItem, handleIncrement, handleDecrement } = cartSlice.actions
+export const {  addToCart,removeFromCart,toggleCartItem, handleIncrement, handleDecrement,clearCart } = cartSlice.actions
 export default cartReducer

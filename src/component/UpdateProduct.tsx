@@ -7,7 +7,9 @@ import  {useAppSelector} from '../redux/hooks/useAppSelector';
 
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
-
+import ImageReadDTOs from '../types/ImagerReadDTO';
+import Update from '../types/Update';
+import UpdateProductProps from '../types/updatedProduct';
 const UpdateProduct:React.FC = () => {
 
     const {error}=useAppSelector(state=>state.productReducer)
@@ -21,8 +23,7 @@ const UpdateProduct:React.FC = () => {
         title:"",
         price:0,
         description:"",
-        categoryId:0,
-        images:""
+        inventory:0
     })
       
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,14 +59,18 @@ const UpdateProduct:React.FC = () => {
  
     useEffect(()=>{
         const priceFromLocalStorage = localStorage.getItem('price') ?? '';
-        setProduct({
+        const imageReadDTOsFromLocalStorage = localStorage.getItem('imageReadDTOs');
+        if (imageReadDTOsFromLocalStorage) {
+          //  const parsedImageReadDTOs = JSON.parse(imageReadDTOsFromLocalStorage);
+           setProduct({
             title:localStorage.getItem('title')?? '',
             price:parseFloat (priceFromLocalStorage),
             description:localStorage.getItem('description')??'',
-            categoryId:Number (localStorage.getItem('categoryId')),
-            images:localStorage.getItem('')??''
-
-        })
+            inventory:Number(localStorage.getItem('inventory')),
+          })
+        }
+      
+        
     },[])
 
     const handleInputChange=(event:React.ChangeEvent<HTMLInputElement>)=>{
@@ -75,27 +80,19 @@ const UpdateProduct:React.FC = () => {
 
     const handleSubmit = async (e:React.FormEvent)=>{
         e.preventDefault()
-        let id= Number ( localStorage.getItem('id') )
-        const updatedProduct ={
-            id,
-            title:product.title,
-            price:Number(product.price),
-            description:product.description,
-            categoryId:product.categoryId,
-            images:[`${img.toString()}`],
-            creationAt:(new Date().toISOString()),
-            updatedAt:(new Date().toISOString()),
-            category:{
-                id:Number(product.categoryId),
-                name:"",
-                image:img.toString(),
-                creationAt:(new Date().toISOString()),
-                updatedAt:(new Date().toISOString())
-            }
-
+        let id = localStorage.getItem('id')!;
+        const updatedProduct: UpdateProductProps={
+            title:product.title!,
+            price:Number(product.price)!,
+            description:product.description!,
+            inventory:product.inventory!
         }
 
-        await dispatch(updateProduct({id,updatedProduct}))
+        const update: Update = {
+          id:id,
+          updateProductProps:updatedProduct
+        }
+        await dispatch(updateProduct(update))
         setMessage("Product info has been updated successfully... wait for page redirect")
         setTimeout(()=>{ redirect('/admin', {replace:true}) },2000)   
     }
@@ -119,13 +116,13 @@ const UpdateProduct:React.FC = () => {
             <input type="text"  name='description'  placeholder='Description' value={product.description} onChange={handleInputChange}/>
         </div>
         <div>
-            <label htmlFor="">Product Category ID</label>
-            <input type="number" name='categoryId' placeholder='Category ID' value={product.categoryId} onChange={handleInputChange}/>
+            <label htmlFor="">Product Inventory</label>
+            <input type="number" name='inventory' placeholder='Inventory' value={product.inventory} onChange={handleInputChange}/>
         </div>
-        <div>
+        {/* <div>
             <label htmlFor="">Product Images</label>
             <input type="file" name="imgInput" multiple  onChange={handleFileChange}/>
-        </div>
+        </div> */}
 
         <button>Update Product</button>
     </form>

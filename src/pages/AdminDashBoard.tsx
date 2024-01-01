@@ -20,7 +20,7 @@ import Stack from '@mui/material/Stack';
 import { LoadingButton } from '@mui/lab';
 
 interface Column {
-  id: 'title' | 'price' | 'description' | 'img'| 'update'| 'delete';
+  id: 'title' | 'price' | 'description' |'inventory'|'img'| 'update'| 'delete';
   label: string;
   minWidth?: number;
   align?: 'right';
@@ -29,12 +29,11 @@ const columns: readonly Column[] = [
   { id: 'title', label: 'Title', minWidth: 60 },
   { id: 'price', label: 'Price', minWidth: 60},
   { id: 'description', label: 'Description',minWidth: 170},
+  { id: 'inventory',label: 'Inventory',minWidth: 100},
   { id: 'img',label: 'Image',minWidth: 100},
   { id: 'update',label: 'Update',minWidth: 100},
   { id: 'delete',label: 'Delete',minWidth: 100},
 ];
-
-
 
 const AdminDashBoard:React.FC =()=>{
   // const access_token = localStorage.getItem("access_token");
@@ -58,21 +57,21 @@ const AdminDashBoard:React.FC =()=>{
     dispatch(fetchAllProducts({offset:0, limit:200}))
   },[dispatch,products])
 
-
+  // console.log(products)
 
   const  handleUpdate=(product:ProductProps)=>{
       localStorage.setItem('id', product.id.toString())
       localStorage.setItem('title',product.title)
       localStorage.setItem('price', product.price.toString())
-      localStorage.setItem('images',product.images.toString())
+      localStorage.setItem('imageReadDTOs',product.images[0].toString())
       localStorage.setItem('description',product.description)
-      localStorage.setItem('categoryId',product.category.id.toString())
+      localStorage.setItem('categoryId',product.categoryId.toString())
       redirect('/updateProduct', {replace:true})
   }
 
-  const handleDelete= async (id:number)=>{
+  const handleDelete= async (id:string)=>{
     try{
-      await dispatch(deleteProduct(Number(id)))
+      await dispatch(deleteProduct(id))
       setMessage("product has been deleted ...")
       setTimeout(()=>{setMessage("")},2000)
       
@@ -121,8 +120,9 @@ const AdminDashBoard:React.FC =()=>{
                 <TableCell>{row.title}</TableCell>
                 <TableCell>{row.price}</TableCell>
                 <TableCell>{row.description}</TableCell>
+                <TableCell>{row.inventory}</TableCell>
                 <TableCell>
-                  <img src={row.images[0]}  alt='pic' style={{width:50, height:50}}    />
+                  <img src={row.images[0].url}  alt='pic' style={{width:50, height:50}}    />
                 </TableCell>
                 <TableCell>
                   <Button

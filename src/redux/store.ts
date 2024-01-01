@@ -3,7 +3,8 @@ import productReducer from "./reducers/productsSlice";
 import usersReducer from "./reducers/usersSlice";
 import cartReducer from "./reducers/cartSlice";
 import CartItem from "../types/CartItems";
-
+import categoryReducer from "./reducers/categorySlice";
+import orderReducer from "./reducers/orderSlice";
 
 let preCartReducer: CartItem[]=JSON.parse(localStorage.getItem('cart') || '[]')
 
@@ -17,6 +18,8 @@ const store = configureStore({
         productReducer,
         usersReducer,
         cartReducer,
+        categoryReducer,
+        orderReducer
     },
    preloadedState:{
         cartReducer :preCartReducer,

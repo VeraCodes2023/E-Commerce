@@ -19,6 +19,8 @@ const App = () => {
   const dispatch = useAppDisPatch()
   const { theme} = useTheme(); 
   const loginUser= useAppSelector(state=>state.usersReducer.loginUser)
+  const access_token = localStorage.getItem("access_token");
+  // console.log(access_token)
 
   useEffect(()=>{
     dispatch(fetchAllProducts({offset:0, limit:220}))
@@ -26,12 +28,14 @@ const App = () => {
 
   useEffect(() => {
     const access_token = localStorage.getItem("access_token");
+    console.log(access_token)
     if (access_token) {
       dispatch(authenticateUserAsync(access_token));
     }
   }, [dispatch]);
 
 
+  
   return (
     <div className={`${theme === 'dark' ? 'dark-theme' : 'light-theme'}`}>
         <BrowserRouter>
@@ -53,7 +57,7 @@ const App = () => {
                 return(<Route
                     key={`privateRoute-${nanoid()}`}
                     path={path}
-                    element={(loginUser !==null && loginUser !==undefined) && (loginUser.role ==="customer" || loginUser.role==="admin") ?
+                    element={(loginUser !==null && loginUser !==undefined) && (loginUser.role ==="Customer" || loginUser.role==="Admin") ?
                     <Component/>: <Navigate to="/login"/>}>
                 </Route>)
 
@@ -65,7 +69,7 @@ const App = () => {
                 return (<Route 
                   key={`adminRoute-${nanoid()}`}
                   path={path}
-                  element={ (loginUser !==null && loginUser !==undefined && loginUser.role ==="admin")?
+                  element={ (loginUser !==null && loginUser !==undefined && loginUser.role ==="Admin")?
                   <Component/>:<Navigate to="/login"/>}>
                 </Route>)
               })

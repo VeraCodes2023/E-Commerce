@@ -16,24 +16,25 @@ const UserLogin:React.FC = () => {
     const navigate = useNavigate()
 
     useEffect(()=>{
-        if(loginUser !==undefined && loginUser !==null){
-            if(loginUser.role ==="customer"){
+
+        if(loginUser){
+            if(loginUser.role ==="Customer"){
                 setEmail("");
                 setPassword("");
                 setMessage("Login successfully, wait a second to redirect...");
                 setTimeout(() => {
-                  navigate('/profile');
+                  navigate('/profile', {replace:true});
                 }, 2000);
-            }else if(loginUser.role ==="admin"){
+            }else if(loginUser.role ==="Admin"){
                 setEmail("")
                 setPassword("")
                 setMessage("login successfully, wait a second to redirect...")
-                setTimeout(()=>{navigate('/admin')},2000)
+                setTimeout(()=>{navigate('/admin',{replace:true})},2000)
             }
         }else{
             return
         }
-    },[loginUser,navigate])
+    },[loginUser, navigate])
 
    
     const loginHandler = async (e:React.FormEvent)=>{

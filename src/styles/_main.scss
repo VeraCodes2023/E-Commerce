@@ -6,6 +6,7 @@
 @use './_admin.scss';
 @use './_createUser.scss';
 @use './_createProduct.scss';
+@use './order';
 
 body{
     .reminder{

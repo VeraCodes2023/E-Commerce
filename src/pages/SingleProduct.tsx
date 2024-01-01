@@ -5,62 +5,65 @@ import { useAppDisPatch } from '../redux/hooks/useAppDispatch';
 import  { getSingleProduct,resetProductsState } from '../redux/reducers/productsSlice';
 import  ProductProps from '../types/product';
 import { addToCart } from  '../redux/reducers/cartSlice';
+import {fetchSingleProduct,fetchAllProducts} from '../redux/asyncThunk/productsAsync';
+
 
 const SingleProduct:React.FC = () => {
-
-  const { singleProduct } = useAppSelector(state=>state.productReducer)
-  const {productId}=useParams()
+  const [prouduct,setProduct]=useState<ProductProps>();
   const redirect = useNavigate()
-  let pics = singleProduct.images
-  const [selectedImage, setSelectedImage] = useState(pics[0]);
-  const id = Number(productId)
   const dispatch = useAppDisPatch()
+  const {products } = useAppSelector(state=>state.productReducer)
+  const {productId}=useParams()
 
   useEffect(()=>{
-     dispatch(getSingleProduct(id))
-  },[id,dispatch])
+    dispatch(fetchAllProducts({offset:0, limit:220}))
+  },[dispatch])
+
+  var target= products.find(p=>p.id===productId?.toString())
+
+   
+  let pics = target!.images;
+  const [selectedImage, setSelectedImage] = useState(pics[0]);
 
   const onAddToCart = (event: React.MouseEvent<HTMLButtonElement>, payload:ProductProps)=> {
     event.preventDefault();
-    if(singleProduct !== null){
-      dispatch(addToCart(singleProduct))
+    if(target !== null){
+      dispatch(addToCart(target!))
     }
   }
   const handleClick = (image: string) => {
-    setSelectedImage(image);
+     setSelectedImage({ url: image });
   };
+
 
   return (
     <div id='details'>
+
         <div className="left">
           <div className="top">
-            {
-             selectedImage === ""? 
-             <img src={singleProduct?.category.image}  alt="" style={{width:310, height:280}}/>:
-             <img src={selectedImage} alt=""  style={{width:310, height:280}}/>
-            }
+            {target!.images && target!.images.length > 0 && <img src={selectedImage.url} alt=""  style={{width:310, height:280}}/>}
           </div>
           <div className="bottom">
             {
-              singleProduct.images.map((image,index)=>(
+              target!.images.map((image,index)=>(
               <img key={index} 
               alt=''
               style={{width:40, height:60}}
-              onClick={() => handleClick(image)}
-              src={image}/>))
+              onClick={() => handleClick(image.url)}
+              src={image.url}/>))
             }
           </div>
         </div>
         <div className="right">
-          <h2 className="title">{singleProduct?.title}</h2>
-          <div className="price">{singleProduct?.price} Euros</div>
+          <h2 className="title">{target?.title}</h2>
+          <div className="price">{target?.price} Euros</div>
           <ul className="description">
               <p>Description:</p>
-              <li>{singleProduct?.description}</li>
+             <li>{target?.description}</li>
           </ul>
           <div>
             <button id='cartBtn' 
-              onClick={(event)=>onAddToCart(event,singleProduct)}
+              onClick={(event)=>onAddToCart(event,target!)}
               >
               Add to Cart
             </button>  

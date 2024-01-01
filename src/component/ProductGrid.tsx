@@ -6,6 +6,7 @@ import  ProductProps from '../types/product';
 import {useAppDisPatch} from '../redux/hooks/useAppDispatch';
 import { addToCart } from "../redux/reducers/cartSlice";
 
+
 interface GridProps{
     p:ProductProps,
     value:string,
@@ -17,12 +18,15 @@ const ProductGrid:React.FC<GridProps> = ({p,value}) => {
         dispatch(addToCart(payload))
     
       }
+ 
 
   return (
     <Grid  item xs={3} id="item">
         <TabPanel value={value } key={p.id}>
             <Link to={`/details/${p.id}`}>
-                <img src={p.images? p.images[0]:""} className='bgPic' alt='pic'></img>
+                {
+                    p.images && p.images.length > 0 &&<img src={p.images[0].url } className='bgPic' alt='pic'></img>
+                }
                 <div className="title">
                     <h5>{p.title}</h5>
                     <p className='price'>{p.price} Euro</p>

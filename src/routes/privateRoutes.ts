@@ -1,6 +1,6 @@
 import UserProfilePage from '../pages/UserProfilePage';
-import PaymentPage from '../pages/PaymentPage';
 import ProfileUpdate from '../component/ProfileUpdate';
+import OrderPage from '../pages/OrderPage';
 
 const privateRoutes =[
     { 
@@ -8,8 +8,8 @@ const privateRoutes =[
         component:UserProfilePage
     },
     {
-        path:"/pay",
-        component:PaymentPage
+        path:"/order",
+        component:OrderPage
     },
     {
         path:"/profileUpdate",

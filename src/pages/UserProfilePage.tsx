@@ -24,6 +24,7 @@ const UserProfilePage:React.FC =()=>{
   }
 
   console.log(loginUser)
+
   return(<div id="profile">
       <div>
           <img src={loginUser?.avatar} alt="pic" />
@@ -44,7 +45,15 @@ const UserProfilePage:React.FC =()=>{
             <a href="##">
               <FontAwesomeIcon icon={faTruck} />
             </a>
-            <p>Koskikatu 23,2240,ESPOO,Finland</p>
+            {loginUser && Array.isArray(loginUser.addresses) && loginUser.addresses.length >= 1 ? (
+            <p>
+              {loginUser.addresses[0]!.street}
+              {loginUser.addresses[0]!.city}
+              {loginUser.addresses[0]!.state}
+              {loginUser.addresses[0]!.postalCode}
+              {loginUser.addresses[0]!.country}
+            </p>
+          ) : ""}
           </div>
           <button onClick={()=>handleUpdateUser()}>Update</button>
       </div>

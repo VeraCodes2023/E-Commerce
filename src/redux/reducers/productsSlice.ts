@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import ProductProps from '../../types/product';
 import {
     fetchAllProducts,
-    fetchCategoryProducts,
+    fetchSingleProduct,
     addProduct,
     updateProduct,
     deleteProduct
@@ -13,7 +13,7 @@ const initialState:{
     categoryProducts:ProductProps[],
     categoryNameList:string[],
     filteredProducts:ProductProps[],
-    singleProduct:ProductProps,
+    singleProduct:ProductProps | undefined,
     error?: string
     loading: boolean
 }={
@@ -21,22 +21,7 @@ const initialState:{
     categoryProducts:[],
     filteredProducts:[],
     categoryNameList:[],
-    singleProduct:{
-        id:0,
-        title:"",
-        price:0,
-        description: "",
-        images:[""],
-        creationAt:"",
-        updatedAt:"", 
-        category:{
-            id:0,
-            name:"",
-            image:"",
-            creationAt:"",
-            updatedAt:""
-        }
-    },
+    singleProduct:undefined,
     loading: false
 }
 
@@ -59,14 +44,16 @@ const productsSlice = createSlice({
             }
         },
         getCategoryProducts:(state, action:PayloadAction<number>)=>{
-           state.categoryProducts=state.products.filter(product=>product.category.id === action.payload)
+           state.categoryProducts=state.products.filter(product=>product.categoryId === action.payload)
         },
         getcategoryNames:(state, action:PayloadAction)=>{
            state.categoryNameList = state.categoryProducts.map(product=>product.title)
         },
-        getSingleProduct:(state, action:PayloadAction<number>)=>{
+        getSingleProduct:(state, action:PayloadAction<string>)=>{
             const foundProduct = state.products.find(product=>product.id === action.payload)
+            console.log(foundProduct)
             if(foundProduct){
+                console.log(foundProduct)
                 state.singleProduct = foundProduct
             }
          },
@@ -78,20 +65,15 @@ const productsSlice = createSlice({
             state.categoryProducts = [];
             state.filteredProducts = [];
             state.singleProduct = {
-              id: 0,
+              id: "",
               title: "",
               price: 0,
+              inventory:0,
               description: "",
-              images: [""],
+              images:[{ url:"" }],
               creationAt: "",
               updatedAt: "",
-              category: {
-                id: 0,
-                name: "",
-                image: "",
-                creationAt: "",
-                updatedAt: ""
-              }
+              categoryId:1
             };
             state.error = "";
             state.loading = false;
@@ -123,32 +105,7 @@ const productsSlice = createSlice({
                 }
             }
         })
-        builder.addCase(fetchCategoryProducts.pending,(state,action)=>{
-            if(action.type === fetchCategoryProducts.pending.type){
-                return{
-                    ...state,
-                    loading:true
-                }
-            }
-        })
-        builder.addCase(fetchCategoryProducts.fulfilled,(state,action)=>{
-            if( !(action.payload instanceof Error) ){
-                return {
-                    ...state,
-                    categoryProducts:action.payload,
-                    loading:false
-                }
-            }
-        })
-        builder.addCase(fetchCategoryProducts.rejected,(state,action)=>{
-            if(action.payload instanceof Error){
-                return{
-                    ...state,
-                    loading:false,
-                    error:action.payload.message
-                }
-            }
-        })
+        
         builder.addCase(addProduct.fulfilled, (state,action)=>{
             if(action.payload && (!(action.payload instanceof Error)) )
             state.products.push(action.payload)
@@ -170,7 +127,7 @@ const productsSlice = createSlice({
                 error:action.payload as string
             }
         })
-        builder.addCase(deleteProduct.fulfilled,(state,action: PayloadAction<number>)=>{
+        builder.addCase(deleteProduct.fulfilled,(state,action: PayloadAction<string>)=>{
              state.products= state.products.filter(product => product.id !== action.payload)
         })
         builder.addCase(deleteProduct.rejected, (state,action)=>{
@@ -181,6 +138,18 @@ const productsSlice = createSlice({
                 error:action.payload as string
             }
         })
+
+        // builder.addCase(fetchSingleProduct.fulfilled,(state,action:PayloadAction<ProductProps>)=>{
+        //     state.singleProduct = action.payload;
+        //     state.loading = false;
+        //     state.error = undefined;
+        // })
+        // builder.addCase(fetchSingleProduct.rejected,(state,action:PayloadAction<any>)=>{
+        //     state.error = action.payload; 
+        //     state.singleProduct = undefined; 
+        //     state.loading = false;
+        // })
+     
     }
 })
 
