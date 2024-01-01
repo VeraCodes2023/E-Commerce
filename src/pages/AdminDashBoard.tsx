@@ -55,7 +55,7 @@ const AdminDashBoard:React.FC =()=>{
 
   useEffect(()=>{
     dispatch(fetchAllProducts({offset:0, limit:200}))
-  },[dispatch,products])
+  },[dispatch])
 
   // console.log(products)
 
@@ -80,7 +80,6 @@ const AdminDashBoard:React.FC =()=>{
         setTimeout(()=>{setMessage("")},2000)
         
     }
-   
  }
 
 
